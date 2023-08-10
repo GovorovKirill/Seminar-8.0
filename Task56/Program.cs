@@ -36,8 +36,10 @@ void PrintMatrix(int[,] matrix)
     }
 }
 
-void SumElemRow(int[,] matrix)
+int[] CreateArrSumElemRow(int[,] matrix)
 {
+    int[] array = new int[matrix.GetLength(0)];
+    int k = 0;
 
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
@@ -47,12 +49,36 @@ void SumElemRow(int[,] matrix)
             sum = sum + matrix[i, j];
         }
 
-        Console.WriteLine($"{sum} ");
+        array[k] = sum;
+        k++;
+
     }
+
+    return array;
 }
 
+int RowMinSumElem(int[] array)
+{
+    int minSum = array[0];
+    int minIndex = 0;
+    
+    for (int i = 0; i < array.Length; i++)
+    {
+        if (array[i] < minSum)
+        {
+            minSum = array[i];
+            minIndex = i + 1;
+        }
+    }
+
+    return minIndex;
+}
 
 int[,] array2D = CreateMatrixRndInt(4, 3, -10, 10);
 PrintMatrix(array2D);
 
-SumElemRow(array2D);
+int[] arr = CreateArrSumElemRow(array2D);
+
+int rowMinSumElem = RowMinSumElem(arr);
+Console.WriteLine($"{rowMinSumElem} строка");
+
